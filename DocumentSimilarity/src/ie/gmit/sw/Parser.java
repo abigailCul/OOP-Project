@@ -20,10 +20,10 @@ public class Parser implements Runnable {
 	/*variables 
  	file which is being parsed
  	k is the number of shingles that generate hash*/
-	public Parser(String file, BlockingQueue<Shingle> q, int shingleSize, int k) {
+	public Parser(String file, BlockingQueue<Shingle> q,int shingleSize) {
 		this.queue = q;
 		this.file=file;
-		this.shignleSize=shingleSize;
+		this.shignleSize=shignleSize;
 		this.k=k;
 	}
 	
@@ -37,6 +37,7 @@ public class Parser implements Runnable {
 			addWordsToBuffer(words);
 			Shingle s = getNextShingle();
 			queue.put(s); // Blocking method. Add is not a blocking method
+		
 		}
 		flushBuffer();
 		br.close();
@@ -65,7 +66,7 @@ public class Parser implements Runnable {
   	private Shingle getNextShingle() {
 		StringBuffer sb = new StringBuffer();
 		int counter = 0;
-		int shingleSize;
+		int shingleSize = 0;
 		while(counter < shingleSize) {
 			if(buffer.peek() != null) {
 				sb.append(buffer.poll());
@@ -81,6 +82,11 @@ public class Parser implements Runnable {
   	} // Next shingle
 	
   	public class Poison extends Shingle {
+
+		public Poison(int docId, int hashcode) {
+			super(docId, hashcode);
+			// TODO Auto-generated constructor stub
+		}
   		// Source -> Generate constructors FROM superclass	
   	}
 

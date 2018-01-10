@@ -15,4 +15,7 @@
 <fullyQualifiedTypeName name="java.util.concurrent.BlockingQueue"/>
 <fullyQualifiedTypeName name="java.util.concurrent.LinkedBlockingQueue"/>
 <fullyQualifiedTypeName name="javax.swing.text.html.parser.DocumentParser"/>
+<fullyQualifiedTypeName name="java.io.FileNotFoundException"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="java.io.FileInputStream"/>
 </qualifiedTypeNameHistroy>

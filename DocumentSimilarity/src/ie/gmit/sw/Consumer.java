@@ -21,12 +21,15 @@ public class Consumer implements Runnable {
 	private Map<Integer, List<Integer>> map = new HashMap<>();
 	private ExecutorService pool;
 
-	public Consumer(BlockingQueue<Shingle>q, int k, int poolSize) {
+	public Consumer(BlockingQueue<Shingle> q, Map <Integer,List<Integer>> map,int k,int[] minhashes) {
 		this.queue = q;
 		this.k = k;
-	//	pool = Executors.fixedSizeThreadPool(poolSize);
+		this.map = map;
+		this.minhashes = minhashes;	
 		init();
 	}
+
+	
 
 	private void init() {
 		Random random = new Random();
@@ -43,7 +46,7 @@ public class Consumer implements Runnable {
 
 			try {
 				
-			
+
 			Shingle s = queue.take(); // Blocking method
 			if(s instanceof Position) {
 				docCount--;
@@ -51,13 +54,13 @@ public class Consumer implements Runnable {
 			
 					for(int i = 0; i < minhashes.length; i++) {
 						int value = s.hashCode()^minhashes[i]; // ^ - xor(Random generated key)
-						List<Integer> list = map.get(s.getDocId());
+						List<Integer> list = map.get(s.getDocID());
 						if(list == null) {					// Happens once for each document
 							list = new ArrayList<Integer>(k); // k - size   //
 							for (int j =0; j < k; j++) {		//
 								list.add(j , Integer.MAX_VALUE);	//
 							}						//
-							map.put((Integer) s.getDocId(), list);			//
+							map.put(s.getDocID(), list);			//
 						}//if
 						else {
 							if(list.get(i) > value) {
@@ -84,6 +87,6 @@ public class Consumer implements Runnable {
 			}// this is a blocking method
 		}
 	}
-}
 	
 
+}
