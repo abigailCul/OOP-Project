@@ -1,23 +1,35 @@
 package ie.gmit.sw;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.concurrent.BlockingQueue;
 
 public class Parser implements Runnable {
-	private BlockingQueue<Shingle>queue;
+	private BlockingQueue<Shingle> queue;
 	private String file;
 	private int shignleSize, k;
 	private Deque<String> buffer = new LinkedList<>();
-	private int docId;	
+	private int docId;
+		
 
-	public Parser(String file, BlockingQueue<Shingle>q, int shingleSize, int k) {
+	/*variables 
+ 	file which is being parsed
+ 	k is the number of shingles that generate hash*/
+	public Parser(String file, BlockingQueue<Shingle> q, int shingleSize, int k) {
 		this.queue = q;
+		this.file=file;
+		this.shignleSize=shingleSize;
+		this.k=k;
 	}
 	
 	public void run() {
-		BufferedReader br = new BufferedReader(new InputStringReader(new FileInputString(file)));
+		try {
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));		
 		String line = null;
 		while((line = br.readLine())!= null) {
 			String uLine = line.toUpperCase();
@@ -28,6 +40,18 @@ public class Parser implements Runnable {
 		}
 		flushBuffer();
 		br.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	
 	}// Run
 
 
@@ -68,10 +92,10 @@ public class Parser implements Runnable {
 				queue.put(s);
 			}
 			else {
-				queue.put(new Poison());
+				queue.put(new Poison(0,0));
 			}
 		}
 	}
 
         
-  }// Document Parser
+  }//Parser

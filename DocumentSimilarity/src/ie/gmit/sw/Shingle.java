@@ -9,5 +9,9 @@ public class Shingle {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public int getHashCode() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }

@@ -1,6 +1,7 @@
 package ie.gmit.sw;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import javax.swing.text.Position;
 
 
 public class Consumer implements Runnable {
+	private static final Collection a = null;
 	private BlockingQueue<Shingle> queue;
 	private int k;
 	private int[] minhashes; // The random stuff
@@ -22,7 +24,7 @@ public class Consumer implements Runnable {
 	public Consumer(BlockingQueue<Shingle>q, int k, int poolSize) {
 		this.queue = q;
 		this.k = k;
-		pool = Executors.fixedSizeThreadPool(poolSize);
+	//	pool = Executors.fixedSizeThreadPool(poolSize);
 		init();
 	}
 
@@ -35,41 +37,53 @@ public class Consumer implements Runnable {
 	}// init
 	
 	public void run() {
-		int docCount = 2; // FIX THIS
+		int docCount = 1; // FIX
+		int max = Integer.MAX_VALUE;
 		while(docCount > 0) {
+
+			try {
+				
+			
 			Shingle s = queue.take(); // Blocking method
 			if(s instanceof Position) {
 				docCount--;
 			}
-			else {
-				pool.execute(new Runnable());
+			
 					for(int i = 0; i < minhashes.length; i++) {
 						int value = s.hashCode()^minhashes[i]; // ^ - xor(Random generated key)
 						List<Integer> list = map.get(s.getDocId());
 						if(list == null) {					// Happens once for each document
 							list = new ArrayList<Integer>(k); // k - size   //
-							for (int j =0; j < list.length; j++) {		//
-								list.set(j > Integer.MAX_VALUE);	//
+							for (int j =0; j < k; j++) {		//
+								list.add(j , Integer.MAX_VALUE);	//
 							}						//
-							map.pool(s.getDocId(), list0);			//
+							map.put((Integer) s.getDocId(), list);			//
 						}//if
 						else {
 							if(list.get(i) > value) {
 							
 								list.set(i, value);
 							}	
-						}//else
-					}// For
-			}// Else
+						
+					}//  Else
+						for( i = 0;i<minhashes.length;i++) {
+							
+							 value = s.getHashCode() ^ minhashes[i];
+											
+							//populate with minimum hash calculated this far
+							if(list.get(i) > value) {
+								list.set(i, value);
+							}
+						}	
+			}// For
+					
 		}// While
-	}// Run
-	
-
-////////////////////////////////////////////////////////////////////////////////////////
-
-List<Integer> intersection = new ArrayList(a);
-intersection.retainAll(b);
-
-float jaccard = ((float)intersection.size()) / ((k*2) + ((float)intersection.size()));
+			catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}// this is a blocking method
+		}
+	}
 }
+	
 
