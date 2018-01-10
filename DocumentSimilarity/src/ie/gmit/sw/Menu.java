@@ -3,8 +3,8 @@ package ie.gmit.sw;
 import java.util.Scanner;
 
 public class Menu {
-	private String f1;
-	private String f2;
+	private String file1;
+	private String file2;
 	private int shingleSize;
 	
 	public Menu() {
@@ -18,15 +18,15 @@ public class Menu {
 		
 		System.out.println("Compare your documents");
 				
-		// Get name of book or URL to process
+		// Get name of file
 		System.out.print("\nEnter File Name 1: ");
-		f1 = console.nextLine();
+		file1 = console.nextLine();
 		
 		System.out.print("\nEnter File Name 2: ");
-		f2 = console.nextLine();
+		file2 = console.nextLine();
+
+		new Launcher(file1,file2, 0);
 		
-		
-		new Launcher(f1, f2, 100);
 }
 	}
 

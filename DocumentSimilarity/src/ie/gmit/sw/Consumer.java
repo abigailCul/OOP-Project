@@ -26,7 +26,7 @@ public class Consumer implements Runnable {
 		this.k = k;
 		this.map = map;
 		this.minhashes = minhashes;	
-		init();
+		//init();
 	}
 
 	
@@ -40,7 +40,7 @@ public class Consumer implements Runnable {
 	}// init
 	
 	public void run() {
-		int docCount = 1; // FIX
+		int docCount = 2; // FIX
 		int max = Integer.MAX_VALUE;
 		while(docCount > 0) {
 
@@ -48,7 +48,7 @@ public class Consumer implements Runnable {
 				
 
 			Shingle s = queue.take(); // Blocking method
-			if(s instanceof Position) {
+			if(s.getHashCode()==0) {
 				docCount--;
 			}
 			

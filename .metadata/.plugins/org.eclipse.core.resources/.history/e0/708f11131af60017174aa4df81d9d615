@@ -1,0 +1,36 @@
+package ie.gmit.sw;
+
+import java.util.Scanner;
+
+public class Menu {
+	private String f1;
+	private String f2;
+	private int shingleSize;
+	
+	public Menu() {
+		super();
+	}
+
+	public void show() throws InterruptedException {
+		// TODO Auto-generated method stub
+		
+		Scanner console=new Scanner(System.in);
+		
+		System.out.println("Compare your documents");
+				
+		// Get name of book or URL to process
+		System.out.print("\nEnter File Name 1: ");
+		f1 = console.nextLine();
+		
+		System.out.print("\nEnter File Name 2: ");
+		f2 = console.nextLine();
+		
+		System.out.print("\nEnter Shingle Size: ");
+		shingleSize = console.nextInt();
+		
+		System.out.println("fileName: "+f1+"fileName: "+f2+ "Shingle Size: "+shingleSize);
+	
+}
+	}
+
+	 

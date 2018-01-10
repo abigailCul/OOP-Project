@@ -1,0 +1,12 @@
+package ie.gmit.sw;
+
+public class Doc {
+
+    String getText() {
+		return null;
+	}
+
+    int getDocID() {
+		return 0;
+	}
+}

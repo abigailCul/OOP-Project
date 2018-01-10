@@ -1,9 +1,11 @@
 package ie.gmit.sw;
 
-public class Poison {
-	public Poison(int docId, int hashcode) {
-		super();
-		// TODO Auto-generated constructor stub
-}
+	public class Poison extends Shingle {
 
-}
+		public Poison(int docId, int hashcode) {
+			super(docId, hashcode);
+			// TODO Auto-generated constructor stub
+		}
+  		// Source -> Generate constructors FROM superclass	
+  	}
+
